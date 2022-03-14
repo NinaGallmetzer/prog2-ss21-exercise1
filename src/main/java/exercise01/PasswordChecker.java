@@ -3,51 +3,48 @@ package exercise01;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CheckPassword {
+public class PasswordChecker {
 
     public boolean checkPassword(String pwToCheck) {
-        return checkNotEmpty(pwToCheck) && checkNotNull(pwToCheck) && checkLength(pwToCheck) &&
-                checkUpperCase(pwToCheck) && checkLowerCase(pwToCheck) && checkNumber(pwToCheck) &&
-                checkSpecialCharacters(pwToCheck) && checkConsecutiveNumber(pwToCheck) && checkNumberQuartett(pwToCheck);
+        return checkNotEmpty(pwToCheck) && checkLength(pwToCheck) &&
+                checkUpperCase(pwToCheck) && checkLowerCase(pwToCheck) &&
+                checkDigit(pwToCheck) && checkSpecialCharacters(pwToCheck) &&
+                checkConsecutiveDigits(pwToCheck) && checkDigitQuartett(pwToCheck);
     }
 
-    public boolean checkNotEmpty(String pwToCheck) {
+    public static boolean checkNotEmpty(String pwToCheck) {
         return !pwToCheck.isEmpty();
     }
 
-    public boolean checkNotNull(String pwToCheck) {
-        return pwToCheck != null;
+    public static boolean checkLength(String pwToCheck) {
+        return pwToCheck.length() >= 8 && pwToCheck.length() <= 25;
     }
 
-    public boolean checkLength(String pwToCheck) {
-        return pwToCheck.length() > 7 && pwToCheck.length() < 26;
-    }
-
-    public boolean checkLowerCase(String pwToCheck) {
+    public static boolean checkLowerCase(String pwToCheck) {
         Pattern p = Pattern.compile("[a-z]");
         Matcher m = p.matcher(pwToCheck);
         return m.find();
     }
 
-    public boolean checkUpperCase(String pwToCheck) {
+    public static boolean checkUpperCase(String pwToCheck) {
         Pattern p = Pattern.compile("[A-Z]");
         Matcher m = p.matcher(pwToCheck);
         return m.find();
     }
 
-    public boolean checkNumber(String pwToCheck) {
+    public static boolean checkDigit(String pwToCheck) {
         Pattern p = Pattern.compile("[0-9]");
         Matcher m = p.matcher(pwToCheck);
         return m.find();
     }
 
-    public boolean checkSpecialCharacters(String pwToCheck) {
+    public static boolean checkSpecialCharacters(String pwToCheck) {
         Pattern p = Pattern.compile("[^\\w[^()#$?!%/@]]");
         Matcher m = p.matcher(pwToCheck);
         return m.find();
     }
 
-    public boolean checkConsecutiveNumber(String pwToCheck) {
+    public static boolean checkConsecutiveDigits(String pwToCheck) {
         for (int i = 0; i < pwToCheck.length()-2; i++) {
             if (Character.isDigit(pwToCheck.charAt(i)) && Character.isDigit(pwToCheck.charAt(i+1)) && Character.isDigit(pwToCheck.charAt(i+2))) {
                 int d1 = pwToCheck.charAt(i);
@@ -61,7 +58,7 @@ public class CheckPassword {
         return true;
     }
 
-    public boolean checkNumberQuartett(String pwToCheck) {
+    public static boolean checkDigitQuartett(String pwToCheck) {
         for (int i = 0; i < pwToCheck.length()-3; i++) {
             if (Character.isDigit(pwToCheck.charAt(i)) && Character.isDigit(pwToCheck.charAt(i+1)) && Character.isDigit(pwToCheck.charAt(i+2)) && Character.isDigit(pwToCheck.charAt(i+3))) {
                 int d1 = pwToCheck.charAt(i);
